@@ -1,17 +1,15 @@
 syntax = "proto3";
 
 service Echo {
-    // Sends a greeting
+    // Reply the same
     rpc Say (EchoRequest) returns (EchoReply) {}
 }
 
-// The request message containing the user's name.
 message EchoRequest {
     string msg = 1;
     int32 mid = 2;
 }
 
-// The response message containing the greetings
 message EchoReply {
     string msg = 1;
     int32 mid = 2;
