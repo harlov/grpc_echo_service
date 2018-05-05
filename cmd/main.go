@@ -1,9 +1,12 @@
 package main
 
 import (
-	server "github.com/harlov/grpc_echo_service/cmd/server"
 	"log"
 	"net"
+	"os"
+
+	"github.com/harlov/grpc_echo_service/cmd/client"
+	server "github.com/harlov/grpc_echo_service/cmd/server"
 )
 
 const (
@@ -11,7 +14,15 @@ const (
 )
 
 func main() {
-	s := server.NewServer()
+	if os.Args[1] == "client" {
+		client.RunEchoClien(os.Args[2], os.Args[3])
+		return
+	}
+
+	s, err := server.NewServer()
+	if err != nil {
+		panic("error create server")
+	}
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
